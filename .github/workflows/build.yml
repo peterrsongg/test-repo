@@ -1,4 +1,8 @@
-on: push
+on:
+  push:
+    branches:
+      - main
+      - main-staging
 jobs:
   first-job:
     runs-on: ubuntu-latest
@@ -9,6 +13,8 @@ jobs:
   slack-job:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Send GitHub Action trigger data to Slack workflow
       id: slack
       uses: slackapi/slack-github-action@v1.24.0
