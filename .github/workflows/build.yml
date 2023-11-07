@@ -4,12 +4,6 @@ on:
       - main
       - main-staging
 jobs:
-  first-job:
-    runs-on: ubuntu-latest
-    container: node:17.6.0
-    steps:
-      - run: node --version
-      - run: npm --version
   slack-job:
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +13,7 @@ jobs:
       id: slack
       uses: slackapi/slack-github-action@v1.24.0
       with:
-        payload-file-path: "./payload-slack-content.json"
+        payload: "{\"author\":\"${{ github.event.sender.login }}\", \"repoName\":\"${{ github.event.repository.full_name }}\", \"status\":\"${{ job.status }}\", \"text\":\"Incoming Webhook test for slack send ${{ job.status }}\"}"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

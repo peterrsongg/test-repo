@@ -1,3 +1,0 @@
-{
-    "text": "${{github.event.commits.0.author.name}} pushed a change to ${{reposiotyr.full_name}}"
-}
